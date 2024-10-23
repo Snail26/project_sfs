@@ -1,11 +1,11 @@
 from cryptography.fernet import Fernet
-
+import hashlib
 import os
-
 import base64
 
 option = input("0 to decrypt. 1 to encrypt: ")
-password = input("Password: ")[0: 32]
+password = input("Password: ")
+upwd = password
 pwdl = len(password)
 
 for i in range(32 - pwdl):
@@ -27,9 +27,13 @@ if option == "0":
             with open("./unlocked/" + fileName, "wb") as writeFile:
                 writeFile.write(contentsE)
                 writeFile.close()
+            with open("./unlocked/lyp.key") as writeFile:
+                writeFile.write(upwd)
+                writeFile.close()
                 
 if option == "1":
     files = os.listdir("./unlocked")
+    os.remove("./unlocked/ltp.key")
     for fileName in files:
         with open("./unlocked/" + fileName, "rb") as file:
             contents = file.read()
