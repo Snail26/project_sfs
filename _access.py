@@ -14,6 +14,8 @@ for i in range(32 - pwdl):
 password = password.encode("UTF-8")
 password = base64.b64encode(password)
 
+open("./unlocked/lyp.key").close()
+
 if option == "0":
     files = os.listdir("./locked")
     for fileName in files:
