@@ -1,5 +1,4 @@
 from cryptography.fernet import Fernet
-import os
 import base64
 import sys
 
@@ -22,20 +21,18 @@ if option == "0":
             contents = file.read()
             file.close()
             contentsE = Fernet(password).decrypt(contents)
-            print(contents)
-            print(contentsE)
-            with open("./" + fileName, "wb") as writeFile:
+            with open("./" + fileName[0: len(fileName) - len(".encrypted")], "wb") as writeFile:
                 writeFile.write(contentsE)
                 writeFile.close()
+                print("Decrypted file: " + fileName)
                 
 if option == "1":
     for fileName in files:
-        with open("./" + fileName, "rb") as file:
+        with open("./" + fileName + ".encrypted", "rb") as file:
             contents = file.read()
             file.close()
             contentsE = Fernet(password).encrypt(contents)
-            print(contents)
-            print(contentsE)
             with open("./" + fileName, "wb") as writeFile:
                 writeFile.write(contentsE)
                 writeFile.close()
+                print("Encrypted file: " + fileName)
