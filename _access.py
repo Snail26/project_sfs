@@ -14,6 +14,7 @@ password = password.encode("UTF-8")
 password = base64.b64encode(password)
 
 files = sys.argv
+files.pop(0)
 
 if option == "0":
     for fileName in files:
@@ -23,7 +24,6 @@ if option == "0":
             contentsE = Fernet(password).decrypt(contents)
             print(contents)
             print(contentsE)
-            os.remove("./locked/" + fileName)
             with open("./" + fileName, "wb") as writeFile:
                 writeFile.write(contentsE)
                 writeFile.close()
@@ -36,7 +36,6 @@ if option == "1":
             contentsE = Fernet(password).encrypt(contents)
             print(contents)
             print(contentsE)
-            os.remove("./unlocked/" + fileName)
             with open("./" + fileName, "wb") as writeFile:
                 writeFile.write(contentsE)
                 writeFile.close()
